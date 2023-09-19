@@ -25,7 +25,6 @@ public class IssueCardController {
 		IssueCard issueCard1 = issueCardService.addIssueCard(issueCard);
 		return new ResponseEntity<IssueCard>(issueCard1,HttpStatus.CREATED);
 	}
-
 	@GetMapping("/{id}")
 	public ResponseEntity<IssueCard> getIssueCard(@PathVariable int id) {
 
