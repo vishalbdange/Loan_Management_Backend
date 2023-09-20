@@ -2,14 +2,21 @@ package com.example.loan_management_backend_new.controller;
 
 import java.util.List;
 
+import com.example.loan_management_backend_new.entities.AuthRequest;
 import com.example.loan_management_backend_new.entities.LoginData;
 import com.example.loan_management_backend_new.config.SecurityConfig;
 import com.example.loan_management_backend_new.exceptions.ResourceNotFoundException;
+import com.example.loan_management_backend_new.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.example.loan_management_backend_new.controller.UserController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +48,12 @@ public class LoginDataController {
     private UserInfoService userinfoservice;
 
     @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
     private SecurityConfig security;;
     @PostMapping("/add")
 //    public ResponseEntity<UserDetails> addLoginData(@Valid @RequestBody LoginData loginData) {
@@ -50,7 +63,14 @@ public class LoginDataController {
         UserDetails user_details = userinfoservice.loadUserByUsername(String.valueOf(loginData.getUsername()));
 
         String isPasswordMatched = String.valueOf(security.passwordEncoder().matches(loginData.getPassword(),user_details.getPassword()));
-         return new ResponseEntity<String>(isPasswordMatched,HttpStatus.CREATED);
+
+
+        if(isPasswordMatched.equals("true")){
+            return new ResponseEntity<String> (jwtService.generateToken(String.valueOf(loginData.getUsername())),HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<String>("Authentication Failed",HttpStatus.CREATED);
+        }
+
     }
 
     @GetMapping("/{id}")
