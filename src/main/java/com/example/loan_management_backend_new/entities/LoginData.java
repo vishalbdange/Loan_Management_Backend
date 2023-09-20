@@ -24,11 +24,11 @@ public class LoginData {
 
     @NotNull
     @Id
-    private int employee_id;
+    private int username;
 
   @Column(nullable =false)
-    private String roles="user";
+    private String roles="";
 
     @Column(nullable =false)
-    private String employee_password;
+    private String password;
 }
