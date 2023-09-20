@@ -48,11 +48,9 @@ public class LoginDataController {
 //        LoginData loginData1 = loginDataService.addLoginData(loginData);
 
         UserDetails user_details = userinfoservice.loadUserByUsername(String.valueOf(loginData.getUsername()));
-        System.out.print(user_details.getPassword());
 
-        
-        String encrypted_password = security.passwordEncoder().encode(loginData.getPassword());
-         return new ResponseEntity<String>(encrypted_password,HttpStatus.CREATED);
+        String isPasswordMatched = String.valueOf(security.passwordEncoder().matches(loginData.getPassword(),user_details.getPassword()));
+         return new ResponseEntity<String>(isPasswordMatched,HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
