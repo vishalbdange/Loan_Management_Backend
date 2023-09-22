@@ -38,6 +38,16 @@ public  class LoanItemServiceImpl implements LoanItemService{
     }
 
     @Override
+    public List<LoanItem> getLoanItemsByEmployeeId(int id) {
+        // TODO Auto-generated method stub
+
+        return loanItemRepository.findByEmployeeId(id);
+    }
+
+
+
+
+    @Override
     public List<LoanItem> getAllLoanItems() {
         // TODO Auto-generated method stub
         return  loanItemRepository.findAll();

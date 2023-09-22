@@ -28,12 +28,11 @@ public class IssueCard
     private int issue_id;
 
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int employee_id;
 
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int item_id;
+
+    private int item_id=345;
 
     @Future(message="Return date should be in future")
     private LocalDate return_date;

@@ -83,7 +83,7 @@ public class EmployeeController {
         if(find_employee != null){
             System.out.print(find_employee);
         }
-        find_employee.setEmployee_name(employee.getEmployee_name());
+        find_employee.setEmployeeName(employee.getEmployeeName());
         find_employee.setGender(employee.getGender());
         find_employee.setAge(employee.getAge());
         find_employee.setSalary(employee.getSalary());
@@ -102,8 +102,8 @@ public class EmployeeController {
 
     @DeleteMapping("/remove/{id}")
     public String delete_employee(@PathVariable int id){
-        Employee find_employee = employeeService.getEmployeeById(id);
-        employeeService.remove_employee(find_employee);
+        Employee findEmployee = employeeService.getEmployeeById(id);
+        employeeService.removeEmployee(findEmployee);
         return "Employee deleted";
     }
 

@@ -9,6 +9,8 @@ public interface LoanItemService {
 
     public LoanItem addLoanItem(LoanItem loan_item);
     public LoanItem getLoanItemById(int id);
-    public List<LoanItem> getAllLoanItems();
+
+    public List<LoanItem> getLoanItemsByEmployeeId(int username);
+     public List<LoanItem> getAllLoanItems();
     public void removeLoanItem(LoanItem loan_item);
 }

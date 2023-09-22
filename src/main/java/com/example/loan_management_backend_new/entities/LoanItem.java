@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.Parameter;
 
 
 @AllArgsConstructor
@@ -23,35 +24,35 @@ public class LoanItem {
 
 
     @NotNull
-    private int employee_id;
+    private int employeeId;
 
     @NotBlank(message = "Item category is required")
     @Size(min = 1, max = 25, message = "Item category length should be between 1 and 25 characters")
-    private String item_category;
+    private String itemCategory;
 
     @NotBlank(message = "Item description is required")
     @Size(min = 1, max = 25, message = "Item description length should be between 1 and 50 characters")
-    private String item_description;
+    private String itemDescription;
 
     @NotNull
-    private double item_value;
+    private double itemValue;
 
     @NotBlank
     @Pattern(regexp = "(Pending|Approved|Rejected)", message = "Status can only be pending, approved or rejected")
-    private String item_status = "Pending";
+    private String itemStatus = "Pending";
 
     @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int loan_id;
+    private int loanId;
 
     @Column(nullable = false)
     @NotBlank
-    private String loan_type;
+    private String loanType;
 
     @NotNull
     @Min(value = 1, message = "Loan duration should be greater than or equal to 1")
-    private int item_duration;
+    private int itemDuration;
 
-    private LocalDate apply_date = LocalDate.now();
+    private LocalDate applyDate = LocalDate.now();
 }

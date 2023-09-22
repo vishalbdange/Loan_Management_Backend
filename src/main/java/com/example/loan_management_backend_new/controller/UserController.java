@@ -1,8 +1,10 @@
 package com.example.loan_management_backend_new.controller;
 
 import com.example.loan_management_backend_new.entities.AuthRequest;
+import com.example.loan_management_backend_new.entities.LoginData;
 import com.example.loan_management_backend_new.entities.UserInfo;
 import com.example.loan_management_backend_new.services.JwtService;
+import com.example.loan_management_backend_new.services.LoginDataService;
 import com.example.loan_management_backend_new.services.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +22,9 @@ public class UserController {
     private UserInfoService service;
 
     @Autowired
+    private LoginDataService loginDataService;
+
+    @Autowired
     private JwtService jwtService;
 
     @Autowired
@@ -32,6 +37,12 @@ public class UserController {
 
     @PostMapping("/addNewUser")
     public String addNewUser(@RequestBody UserInfo userInfo) {
+        LoginData logindata  = new LoginData();
+        logindata.setUsername(Integer.parseInt(userInfo.getUsername()));
+        logindata.setPassword(userInfo.getPassword());
+        logindata.setRoles(userInfo.getRoles());
+
+        loginDataService.addLoginData(logindata);
         return service.addUser(userInfo);
     }
 

@@ -25,15 +25,14 @@ import lombok.*;
 
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int employee_id;
+    private int employeeId;
 
 
     @Column(nullable =false)
-    private String employee_password;
+    private String employeePassword;
 
     @Column(nullable =false)
-    private String employee_name;
+    private String employeeName;
 
     @Column(nullable =false)
     private String gender;

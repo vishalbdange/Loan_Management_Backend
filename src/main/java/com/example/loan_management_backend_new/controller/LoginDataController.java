@@ -1,11 +1,14 @@
 package com.example.loan_management_backend_new.controller;
 
-import java.util.List;
+import java.util.*;
 
 import com.example.loan_management_backend_new.entities.AuthRequest;
 import com.example.loan_management_backend_new.entities.LoginData;
 import com.example.loan_management_backend_new.config.SecurityConfig;
+import com.example.loan_management_backend_new.entities.UserInfo;
 import com.example.loan_management_backend_new.exceptions.ResourceNotFoundException;
+import com.example.loan_management_backend_new.repositories.LoginDataRepository;
+import com.example.loan_management_backend_new.repositories.UserInfoRepository;
 import com.example.loan_management_backend_new.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.loan_management_backend_new.controller.UserController;
@@ -45,6 +48,9 @@ public class LoginDataController {
     private LoginDataService loginDataService;
 
     @Autowired
+    private LoginDataRepository loginDataRepository;
+
+    @Autowired
     private UserInfoService userinfoservice;
 
     @Autowired
@@ -54,11 +60,13 @@ public class LoginDataController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private SecurityConfig security;;
+    private SecurityConfig security;
+
+
     @PostMapping("/add")
 //    public ResponseEntity<UserDetails> addLoginData(@Valid @RequestBody LoginData loginData) {
     public ResponseEntity<String> addLoginData(@Valid @RequestBody LoginData loginData) {
-//        LoginData loginData1 = loginDataService.addLoginData(loginData);
+        LoginData loginData1 = loginDataRepository.findByUsername(loginData.getUsername());
 
         UserDetails user_details = userinfoservice.loadUserByUsername(String.valueOf(loginData.getUsername()));
 
@@ -66,10 +74,15 @@ public class LoginDataController {
 
 
         if(isPasswordMatched.equals("true")){
+            ArrayList<String> loginCred = new ArrayList<String>();
+            System.out.println("Hiiiiii");
+            System.out.print(loginData1.getRoles());
             return new ResponseEntity<String> (jwtService.generateToken(String.valueOf(loginData.getUsername())),HttpStatus.CREATED);
+
         }else{
             return new ResponseEntity<String>("Authentication Failed",HttpStatus.CREATED);
         }
+
 
     }
 

@@ -3,6 +3,7 @@ package com.example.loan_management_backend_new.controller;
 import java.util.List;
 
 import com.example.loan_management_backend_new.entities.Employee;
+import com.example.loan_management_backend_new.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,24 @@ public class LoanItemController {
 		return ResponseEntity.ok(loanItems);
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<List<LoanItem>> getLoanItem(@PathVariable int id) {
+
+		try {
+//			return ResponseEntity.ofNullable(employeeService.getEmployeeById(id)).orElseThrow(()-> new ResourceNotFoundException("transaction not found for this id :: " + id));
+			List<LoanItem> test  =  loanItemService.getLoanItemsByEmployeeId(id);
+
+			return ResponseEntity.ok(test);
+
+		}
+		catch(ResourceNotFoundException e) {
+
+			System.out.println(e.getMessage());
+			return null;
+		}
+
+	}
+
 	@PutMapping("/update/{id}")
 	public ResponseEntity<LoanItem> update_user(@PathVariable int id, @RequestBody LoanItem loanItem){
 		LoanItem find_loanItem = loanItemService.getLoanItemById(id);
@@ -49,14 +68,14 @@ public class LoanItemController {
 			System.out.print(find_loanItem);
 		}
         assert find_loanItem != null;
-        find_loanItem.setEmployee_id(loanItem.getEmployee_id());
-		find_loanItem.setItem_category(loanItem.getItem_category());
-		find_loanItem.setItem_category(loanItem.getItem_category());
-		find_loanItem.setItem_value(loanItem.getItem_value());
-		find_loanItem.setItem_status(loanItem.getItem_status());
-		find_loanItem.setLoan_id(loanItem.getLoan_id());
-		find_loanItem.setLoan_type(loanItem.getLoan_type());
-		find_loanItem.setItem_duration(loanItem.getItem_duration());
+        find_loanItem.setEmployeeId(loanItem.getEmployeeId());
+		find_loanItem.setItemDescription(loanItem.getItemDescription());
+		find_loanItem.setItemCategory(loanItem.getItemCategory());
+		find_loanItem.setItemValue(loanItem.getItemValue());
+		find_loanItem.setItemStatus(loanItem.getItemStatus());
+		find_loanItem.setLoanId(loanItem.getLoanId());
+		find_loanItem.setLoanType(loanItem.getLoanType());
+		find_loanItem.setItemDuration(loanItem.getItemDuration());
 
 		LoanItem updated_loanItem = loanItemService.addLoanItem(find_loanItem);
 //		Account updated_account = account_service_provider.getAccountByEmailId(find_user.getEmail()).orElseThrow(
