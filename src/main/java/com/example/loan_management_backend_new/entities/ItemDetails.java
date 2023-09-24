@@ -21,7 +21,6 @@ import lombok.*;
 public class ItemDetails {
     @NotNull
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int itemId;
 
     @NotBlank(message = "Item category is required")

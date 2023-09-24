@@ -34,6 +34,10 @@ public class LoanItem {
     @Size(min = 1, max = 25, message = "Item description length should be between 1 and 50 characters")
     private String itemDescription;
 
+    @NotBlank(message = "Item make is required")
+    @Size(min = 1, max = 25, message = "Item make length should be between 1 and 50 characters")
+    private String itemMake;
+
     @NotNull
     private double itemValue;
 
@@ -50,9 +54,13 @@ public class LoanItem {
     @NotBlank
     private String loanType;
 
+
+
     @NotNull
     @Min(value = 1, message = "Loan duration should be greater than or equal to 1")
-    private int itemDuration;
+    private int loanDuration=1;
 
     private LocalDate applyDate = LocalDate.now();
+
+    private LocalDate issueDate = LocalDate.now();
 }

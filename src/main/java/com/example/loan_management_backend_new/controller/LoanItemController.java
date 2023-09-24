@@ -75,7 +75,9 @@ public class LoanItemController {
 		find_loanItem.setLoanStatus(loanItem.getLoanStatus());
 		find_loanItem.setLoanId(loanItem.getLoanId());
 		find_loanItem.setLoanType(loanItem.getLoanType());
-		find_loanItem.setItemDuration(loanItem.getItemDuration());
+		find_loanItem.setLoanDuration(loanItem.getLoanDuration());
+		find_loanItem.setItemMake(loanItem.getItemMake());
+		find_loanItem.setItemMake(loanItem.getItemMake());
 
 		LoanItem updated_loanItem = loanItemService.addLoanItem(find_loanItem);
 //		Account updated_account = account_service_provider.getAccountByEmailId(find_user.getEmail()).orElseThrow(
