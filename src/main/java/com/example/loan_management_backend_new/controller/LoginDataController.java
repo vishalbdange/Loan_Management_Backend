@@ -71,15 +71,20 @@ public class LoginDataController {
         UserDetails user_details = userinfoservice.loadUserByUsername(String.valueOf(loginData.getUsername()));
 
         String isPasswordMatched = String.valueOf(security.passwordEncoder().matches(loginData.getPassword(),user_details.getPassword()));
-
+//        HashMap<String,ResponseEntity<String>> tokenUserRoleDetails = new HashMap<String,ResponseEntity<String>>();
 
         if(isPasswordMatched.equals("true")){
-            ArrayList<String> loginCred = new ArrayList<String>();
-            System.out.println("Hiiiiii");
-            System.out.print(loginData1.getRoles());
-            return new ResponseEntity<String> (jwtService.generateToken(String.valueOf(loginData.getUsername())),HttpStatus.CREATED);
+
+//            System.out.println("Hiiiiii");
+//            tokenUserRoleDetails.put(loginData1.getRoles() , new ResponseEntity<String> (jwtService.generateToken(String.valueOf(loginData.getUsername())),HttpStatus.CREATED));
+//             return tokenUserRoleDetails;
+//            loginCred.add(loginData1.getRoles());
+////            loginCred.add()
+        return new ResponseEntity<String> (jwtService.generateToken(String.valueOf(loginData.getUsername())),HttpStatus.CREATED);
 
         }else{
+//            tokenUserRoleDetails.put("InvalidUser" , new ResponseEntity<String>("Authentication Failed",HttpStatus.CREATED));
+//            return tokenUserRoleDetails;
             return new ResponseEntity<String>("Authentication Failed",HttpStatus.CREATED);
         }
 
