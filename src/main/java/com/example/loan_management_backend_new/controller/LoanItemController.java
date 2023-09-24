@@ -72,7 +72,7 @@ public class LoanItemController {
 		find_loanItem.setItemDescription(loanItem.getItemDescription());
 		find_loanItem.setItemCategory(loanItem.getItemCategory());
 		find_loanItem.setItemValue(loanItem.getItemValue());
-		find_loanItem.setItemStatus(loanItem.getItemStatus());
+		find_loanItem.setLoanStatus(loanItem.getLoanStatus());
 		find_loanItem.setLoanId(loanItem.getLoanId());
 		find_loanItem.setLoanType(loanItem.getLoanType());
 		find_loanItem.setItemDuration(loanItem.getItemDuration());

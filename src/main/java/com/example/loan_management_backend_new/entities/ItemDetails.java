@@ -1,6 +1,5 @@
 package com.example.loan_management_backend_new.entities;
 import java.time.LocalDate;
-
 import jakarta.validation.constraints.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,22 +8,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.Parameter;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="LoanItem")
+@Table(name="ItemDetails")
 @Getter
 @Setter
 
-public class LoanItem {
-
-
+public class ItemDetails {
     @NotNull
-    private int employeeId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int itemId;
 
     @NotBlank(message = "Item category is required")
     @Size(min = 1, max = 25, message = "Item category length should be between 1 and 25 characters")
@@ -37,22 +35,15 @@ public class LoanItem {
     @NotNull
     private double itemValue;
 
+    @NotBlank(message = "Item make is required")
+    @Size(min = 1, max = 25, message = "Item make should be between 1 and 10 characters")
+    private String itemMake;
+
+
     @NotBlank
-    @Pattern(regexp = "(Pending|Approved|Rejected)", message = "Status can only be pending, approved or rejected")
-    private String loanStatus = "Pending";
+    @Pattern(regexp = "(Available|Unavailable)", message = "Status can only be Available or Unavailable")
+    private String itemStatus = "Unavailable";
 
-    @NotNull
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int loanId;
 
-    @Column(nullable = false)
-    @NotBlank
-    private String loanType;
 
-    @NotNull
-    @Min(value = 1, message = "Loan duration should be greater than or equal to 1")
-    private int itemDuration;
-
-    private LocalDate applyDate = LocalDate.now();
 }

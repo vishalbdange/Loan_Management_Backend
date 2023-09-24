@@ -83,6 +83,7 @@ public class EmployeeController {
         if(find_employee != null){
             System.out.print(find_employee);
         }
+
         find_employee.setEmployeeName(employee.getEmployeeName());
         find_employee.setGender(employee.getGender());
         find_employee.setAge(employee.getAge());
@@ -106,6 +107,4 @@ public class EmployeeController {
         employeeService.removeEmployee(findEmployee);
         return "Employee deleted";
     }
-
-
 }

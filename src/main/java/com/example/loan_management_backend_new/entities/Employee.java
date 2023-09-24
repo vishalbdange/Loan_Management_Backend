@@ -58,7 +58,7 @@ public class Employee {
     private String mobile;
 
 
-    private String role;
+    private String role="User";
 
 
 }
