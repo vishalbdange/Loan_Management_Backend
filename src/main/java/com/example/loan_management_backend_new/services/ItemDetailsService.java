@@ -12,4 +12,6 @@ public interface ItemDetailsService {
     public ItemDetails getItemDetailsById(int id);
     public List<ItemDetails> getAllItemDetails();
     public void removeItemDetails(ItemDetails itemDetails);
+    String updateItemDetails(int id,ItemDetails itemDetails);
+	
 }

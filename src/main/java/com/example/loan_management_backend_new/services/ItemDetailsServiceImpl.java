@@ -56,4 +56,13 @@ public class ItemDetailsServiceImpl implements ItemDetailsService {
 		itemDetailsRepository.delete(itemDetails);
 	}
 
+
+	@Override
+	public String updateItemDetails(int id, ItemDetails itemDetails) {
+		itemDetails.setItemId(id);
+		itemDetailsRepository.save(itemDetails);
+			
+			return "Item details with id "+id+" updated successfully";
+	}
+
 }
