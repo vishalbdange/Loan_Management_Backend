@@ -52,19 +52,24 @@ public class ItemDetailsController {
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<ItemDetails> updateItemDetails(@PathVariable int id, @RequestBody ItemDetails itemDetails){
-		ItemDetails findItemDetails = itemDetailsService.getItemDetailsById(id);
-		if(findItemDetails != null){
-			System.out.print(findItemDetails);
-		}
-        assert findItemDetails != null;
-        findItemDetails.setItemId(itemDetails.getItemId());
-        findItemDetails.setItemCategory(itemDetails.getItemCategory());
-        findItemDetails.setItemValue(itemDetails.getItemValue());
-        findItemDetails.setItemStatus(itemDetails.getItemStatus());
-        findItemDetails.setItemStatus(itemDetails.getItemMake());
-       
-        ItemDetails updatedItemDetails = itemDetailsService.addItemDetails(findItemDetails);
-		return ResponseEntity.ok(updatedItemDetails);
+		/*
+		 * ItemDetails findItemDetails = itemDetailsService.getItemDetailsById(id);
+		 * if(findItemDetails != null){ System.out.print(findItemDetails); } assert
+		 * findItemDetails != null; findItemDetails.setItemId(itemDetails.getItemId());
+		 * findItemDetails.setItemCategory(itemDetails.getItemCategory());
+		 * findItemDetails.setItemValue(itemDetails.getItemValue());
+		 * findItemDetails.setItemStatus(itemDetails.getItemStatus());
+		 * findItemDetails.setItemStatus(itemDetails.getItemMake());
+		 * 
+		 * ItemDetails updatedItemDetails =
+		 * itemDetailsService.addItemDetails(findItemDetails); return
+		 * ResponseEntity.ok(updatedItemDetails);
+		 */
+		
+			
+			return itemDetailsService.updateItemDetails(id, itemDetails);
+		
+
 	}
 
 	@DeleteMapping("/remove/{id}")
