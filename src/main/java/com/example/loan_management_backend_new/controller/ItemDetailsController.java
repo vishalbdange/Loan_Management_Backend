@@ -4,6 +4,7 @@ import java.util.List;
 
 
 //import com.example.loan_management_backend_new.config.SecurityConfig;
+import com.example.loan_management_backend_new.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,16 +44,21 @@ public class ItemDetailsController {
         if(findItemDetails != null){
             System.out.print(findItemDetails);
         }
-        assert findItemDetails != null;
+
+        //assert findItemDetails != null;
         findItemDetails.setItemId(itemDetails.getItemId());
         findItemDetails.setItemCategory(itemDetails.getItemCategory());
         findItemDetails.setItemValue(itemDetails.getItemValue());
         findItemDetails.setItemStatus(itemDetails.getItemStatus());
-        findItemDetails.setItemStatus(itemDetails.getItemMake());
+        findItemDetails.setItemMake(itemDetails.getItemMake());
+        findItemDetails.setItemDescription(itemDetails.getItemDescription());
 
-        ItemDetails updatedItemDetails = itemDetailsService.addItemDetails(findItemDetails);
-        return ResponseEntity.ok(updatedItemDetails);
+        ItemDetails updatedItem = itemDetailsService.addItemDetails(findItemDetails);
+        return ResponseEntity.ok(updatedItem);
     }
+
+
+
 
     @DeleteMapping("/remove/{id}")
     public String deleteItemDetails(@PathVariable int id){

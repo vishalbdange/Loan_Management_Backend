@@ -2,10 +2,8 @@ package com.example.loan_management_backend_new.controller;
 
 import java.util.*;
 
-import com.example.loan_management_backend_new.entities.AuthRequest;
-import com.example.loan_management_backend_new.entities.LoginData;
+import com.example.loan_management_backend_new.entities.*;
 import com.example.loan_management_backend_new.config.SecurityConfig;
-import com.example.loan_management_backend_new.entities.UserInfo;
 import com.example.loan_management_backend_new.exceptions.ResourceNotFoundException;
 import com.example.loan_management_backend_new.repositories.LoginDataRepository;
 import com.example.loan_management_backend_new.repositories.UserInfoRepository;
@@ -62,6 +60,8 @@ public class LoginDataController {
     @Autowired
     private SecurityConfig security;
 
+    @Autowired
+    private UserInfoRepository userinforepo;
 
     @PostMapping("/add")
 //    public ResponseEntity<UserDetails> addLoginData(@Valid @RequestBody LoginData loginData) {
@@ -113,6 +113,45 @@ public class LoginDataController {
     public ResponseEntity<List<LoginData>> getAllLoginData() {
         List<LoginData> loginData = loginDataService.getAllLoginData();
         return ResponseEntity.ok(loginData);
+    }
+
+    @PutMapping("/forgotpassword/{id}")
+    public ResponseEntity<LoginData> updatePassword(@PathVariable int id, @RequestBody LoginData user){
+        LoginData find_user = loginDataService.getLoginDataById(id);
+//        UserInfo find_userInfo ;
+//        find_userInfo  = userinforepo.findByName(String.valueOf(user.getUsername()));
+
+        if(find_user != null){
+            System.out.print(find_user);
+        }
+
+        assert find_user != null;
+
+//        if(find_userInfo != null){
+//            System.out.print(find_userInfo);
+//        }
+//
+//        assert find_userInfo != null;
+
+
+        String password = security.passwordEncoder().encode(user.getPassword());
+//
+//        find_userInfo.setUsername(String.valueOf(user.getUsername()));
+//        find_userInfo.setPassword(password);
+//        find_userInfo.setEmail(find_userInfo.getEmail());
+//        find_userInfo.setRoles(find_userInfo.getRoles());
+
+        find_user.setUsername(find_user.getUsername());
+        find_user.setPassword(password);
+        find_user.setRoles(find_user.getRoles());
+
+//        find_userInfo.setPassword(find_userInfo.getUsername());
+
+
+        LoginData updated_user = loginDataService.addLoginData(find_user);
+//        userinfoservice.addUser(find_userInfo);
+
+        return ResponseEntity.ok(updated_user);
     }
 
 

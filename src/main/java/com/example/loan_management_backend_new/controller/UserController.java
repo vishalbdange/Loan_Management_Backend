@@ -1,5 +1,6 @@
 package com.example.loan_management_backend_new.controller;
 
+import com.example.loan_management_backend_new.config.SecurityConfig;
 import com.example.loan_management_backend_new.entities.AuthRequest;
 import com.example.loan_management_backend_new.entities.LoginData;
 import com.example.loan_management_backend_new.entities.UserInfo;
@@ -13,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -30,6 +32,9 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private SecurityConfig security;
+
     @GetMapping("/welcome")
     public String welcome() {
         return "Welcome this endpoint is not secure";
@@ -39,7 +44,7 @@ public class UserController {
     public String addNewUser(@RequestBody UserInfo userInfo) {
         LoginData logindata  = new LoginData();
         logindata.setUsername(Integer.parseInt(userInfo.getUsername()));
-        logindata.setPassword(userInfo.getPassword());
+        logindata.setPassword(security.passwordEncoder().encode(userInfo.getPassword()));
         logindata.setRoles(userInfo.getRoles());
 
         loginDataService.addLoginData(logindata);
