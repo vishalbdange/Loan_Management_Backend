@@ -119,7 +119,7 @@ public class LoginDataController {
     public ResponseEntity<LoginData> updatePassword(@PathVariable int id, @RequestBody LoginData user){
         LoginData find_user = loginDataService.getLoginDataById(id);
 //        UserInfo find_userInfo ;
-//        find_userInfo  = userinforepo.findByName(String.valueOf(user.getUsername()));
+//        find_userInfo  = userinforepo.findByEmail(String.valueOf(user.getUsername()));
 
         if(find_user != null){
             System.out.print(find_user);
