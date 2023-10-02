@@ -1,5 +1,8 @@
 package com.example.loan_management_backend_new.entities;
 import java.time.LocalDate;
+
+import org.hamcrest.Matcher;
+
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +18,7 @@ import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Past;
 import lombok.*;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -24,16 +28,29 @@ import lombok.*;
 @Setter
 
 public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int employee_id;
+	 public Employee(int i, String password, String name, String gender, int age, double salary, String email,LocalDate ld, String contactnumber) {
+			// TODO Auto-generated constructor stub
+	    	this.employeeId=i;
+	    	this.employeeName=name;
+	    	this.gender=gender;
+	    	this.employeePassword=password;
+	    	this.age=age;
+	    	this.salary=salary;
+	    	this.doj=ld;
+	    	this.mobile=contactnumber;
+	    	this.email=email;
+		}
+
+
+	@Id
+    private int employeeId;
 
 
     @Column(nullable =false)
-    private String employee_password;
+    private String employeePassword;
 
     @Column(nullable =false)
-    private String employee_name;
+    private String employeeName;
 
     @Column(nullable =false)
     private String gender;
@@ -59,7 +76,12 @@ public class Employee {
     private String mobile;
 
 
-    private String role;
+    private String role="User";
+
+
+	
+    
+
 
 
 }
